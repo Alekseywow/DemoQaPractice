@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -7,16 +8,34 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class FormPracticeTests {
+public class RegistrationWithtestDataTests {
+
+//    static String firstName,
+//            lastName,
+//            userEmail;
+
 
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
+        Configuration.browserSize = "1920x1080";
     }
+
+//    @BeforeEach
+//    void prepareTestData(){
+//        firstName = "Aleksey";
+//        lastName = "Danilov";
+//        userEmail = "danilov@mail.ru";
+//    }
+
 
     @Test
     void fillFormTest () {
+//        String firstName = "Aleksey",
+//                lastName = "Danilov",
+//                userEmail = "danilov@mail.ru";
+
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
@@ -24,7 +43,7 @@ public class FormPracticeTests {
 
         $("#firstName").setValue("Aleksey");
         $("#lastName").setValue("Danilov");
-        $("#userEmail").setValue("danilov@mail.ru");
+        $("#userEmail").setValue("mail@mail.ru");
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("8900112233");
 
@@ -48,8 +67,10 @@ public class FormPracticeTests {
         $("#submit").click();
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+
+
         $(".table").$(byText("Student Name")).sibling(0).shouldHave(text("Aleksey Danilov"));
-        $(".table").$(byText("Student Email")).sibling(0).shouldHave(text("danilov@mail.ru"));
+        $(".table").$(byText("Student Email")).sibling(0).shouldHave(text("mail@mail.ru"));
         $(".table").$(byText("Gender")).sibling(0).shouldHave(text("Male"));
         $(".table").$(byText("Mobile")).sibling(0).shouldHave(text("8900112233"));
         $(".table").$(byText("Date of Birth")).sibling(0).shouldHave(text("26 September,1994"));
